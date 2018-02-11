@@ -11,14 +11,22 @@ SRC=./src
 _DEPS = nodestructures.h nodebinsearch.h nodequicksort.h readnodes.h readways.h astar.h astarqueues.h heuristic.h monitoring.h closestpoint.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = nodebinsearch.o nodequicksort.o readnodes.o readways.o astar.o astarqueues.o heuristic.o monitoring.o closestpoint.o
+_ULIBS = nodebinsearch.o nodequicksort.o astarqueues.o heuristic.o monitoring.o closestpoint.o
+
+
+$(LDIR)/%.o: $(LDIR)/%.cpp $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+
+_OBJ = readnodes.o readways.o astar.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
+ULIBS  = $(patsubst %,$(ODIR)/%,$(_ULIBS))
 
 $(ODIR)/%.o: $(SRC)/%.cpp $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS) 
+	$(CC) -c -o $@ $< $(CFLAGS) $(ULIBS)
 
 main: main.cpp
-	$(CC) -o $@ $^ $(CFLAGS) $(OBJ) 	
+	$(CC) -o $@ $^ $(CFLAGS) $(ULIBS) $(OBJ) 	
 
 
 .PHONY: clean

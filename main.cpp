@@ -18,7 +18,7 @@ using std::cout;
 using std::getline;
 using std::cin;
 
-bool fexists(const std::string& filename);
+inline bool fexists(const std::string& filename);
 
 int main(int argc, char * argv[]) {
 
@@ -76,9 +76,9 @@ int main(int argc, char * argv[]) {
 				astarfinding(outputfile, folder, startLL, goalLL);
 		}
 		else{
-		//		readingnodes(filename, folder);
-			//	readingways(filename, folder);
-				//astarfinding(outputfile, folder, startLL, goalLL);
+				readingnodes(filename, folder);
+				readingways(filename, folder);
+				astarfinding(outputfile, folder, startLL, goalLL);
 		}
 
 	}
@@ -86,7 +86,7 @@ int main(int argc, char * argv[]) {
 	return(0);
 }
 
-bool fexists(const std::string& filename) {
+inline bool fexists(const std::string& filename) {
   std::ifstream ifile(filename.c_str());
   return (bool)ifile;
 }
